@@ -16,7 +16,7 @@ route.get('/about' , function (req , res) {
 });
 
 route.get('/contact' , function (req , res) {
-	res.render('about');
+	res.render('contact');
 });
 
 route.get('/menulogs' , function (req , res) {
