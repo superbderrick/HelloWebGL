@@ -19,4 +19,9 @@ route.get('/contact' , function (req , res) {
 	res.render('about');
 });
 
+route.get('/menulogs' , function (req , res) {
+	res.render('menulogs');
+});
+
+
 module.exports = route;
