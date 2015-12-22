@@ -15,8 +15,8 @@ route.get('/about' , function (req , res) {
 	res.render('about');
 });
 
-route.get('/contact' , function (req , res) {
-	res.render('contact');
+route.get('/insert' , function (req , res) {
+	res.render('insert');
 });
 
 route.get('/menulogs' , function (req , res) {
