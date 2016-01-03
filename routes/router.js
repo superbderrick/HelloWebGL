@@ -4,6 +4,10 @@ var route = express.Router();
 //main page router
 
 route.get('/' , function (req , res) {
+	res.render('login');
+});
+
+route.get('/index' , function (req , res) {
 	res.render('index');
 });
 
