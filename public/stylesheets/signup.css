@@ -128,12 +128,25 @@ label {
   -moz-text-shadow: -1px 1px 0 #fff;
   -webkit-text-shadow: -1px 1px 0 #fff;
 }
+
+.header {
+  font-size: 50px;
+  padding-left: 10px;
+  color: green;
+  text-shadow: -1px 1px 0 #fff;
+  -moz-text-shadow: -1px 1px 0 #fff;
+  -webkit-text-shadow: -1px 1px 0 #fff;
+  margin-top: 3px;
+
+}
+
 .subheading {
   color: #808080;
   text-shadow: -1px 1px 0 #fff;
   -moz-text-shadow: -1px 1px 0 #fff;
   -webkit-text-shadow: -1px 1px 0 #fff;
   margin-top: 3px;
+  padding-left: 10px;
 }
 button i {
   padding-left: 8px;
