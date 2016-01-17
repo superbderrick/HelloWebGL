@@ -6,6 +6,9 @@ var route = express.Router();
 route.get('/' , function (req , res) {
 	res.render('login');
 });
+route.get('/signup' , function (req , res) {
+	res.render('signup');
+});
 
 route.get('/index' , function (req , res) {
 	res.render('index');
