@@ -4,7 +4,7 @@ var route = express.Router();
 //main page router
 
 route.get('/' , function (req , res) {
-	res.render('login');
+	res.render('index');
 });
 route.get('/signup' , function (req , res) {
 	res.render('signup');
