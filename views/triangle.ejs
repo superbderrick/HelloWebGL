@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+
+    <title>Hello WEBGL </title>
+
+    <script type="text/javascript">
+
+    function InitDemo() {
+
+      var canvas = document.getElementById("canvas");
+      console.log(canvas)
+
+      if(canvas.getContext) {
+
+          //Draw a Red Square
+          var context2D = canvas.getContext("2d");
+          context2D.fillStyle = "rgb(255,0,0)";
+          context2D.fillRect(20,20,80,80);
+
+          //Draw a Green Square with 50% opacity
+          context2D.fillStyle = "rgb(0,255,0,0.5)";
+          context2D.fillRect(70,70,80,100);
+
+
+          context2D.strokEStyle = "black";
+          context2D.lineWidth = 5;
+          context2D.beginPath();
+          context2D.arc(100,100,90,(Math.PI/180) * 0 ,(Math.PI/180)* 360 , false);
+          context2D.stroke();
+          context2D.closePath();
+
+
+          context2D.font = "20px serif";
+          context2D.fillText("Hello World " , 40 , 220 );
+
+}  
+
+    }
+
+    </script>
+  </head>
+
+  <body onload="InitDemo();">
+
+    <canvas id="canvas" width="300" height="300">
+
+      hello Derrick
+    </canvas>
+
+    <ul>
+      <li><a href='index'>go to main </a></li>
+          
+      </ul>
+
+  </body>
+</html>

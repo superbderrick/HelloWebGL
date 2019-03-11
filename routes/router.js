@@ -6,12 +6,12 @@ var route = express.Router();
 route.get('/' , function (req , res) {
 	res.render('index');
 });
-route.get('/signup' , function (req , res) {
-	res.render('signup');
+route.get('/canvasdrawing' , function (req , res) {
+	res.render('canvasdrawing');
 });
 
-route.get('/index' , function (req , res) {
-	res.render('index');
+route.get('/triangle' , function (req , res) {
+	res.render('triangle');
 });
 
 route.get('/reset' , function (req , res) {
