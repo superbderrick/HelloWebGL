@@ -10,5 +10,5 @@ This is a WebGL tutorial project
 
 
 
-#1.1 WebGL Basic
+
 
