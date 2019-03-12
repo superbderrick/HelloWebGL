@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+
+    <title>Listing 2-2 A First WebGL Example </title>
+
+    <script id="shader-vs" type="x-shader/x-vertex">
+        attribute vec3 aVertexPosition;
+
+        void main() {
+            gl_Position = vec4(aVertexPosition , 1.0);
+        }
+        
+    </script>
+
+    <script id="shader-fs" type="x-shader/x-fragment">
+        precision mediump float;
+        
+        void main() {
+            gl_FragColor = vec4(1.0,1.0,1.0,1.0);
+        }
+        
+    </script>
+    <script src="../../assets/js/webgl-debug.js"></script>
+    
+    <script type="text/javascript">
+
+    function createGLContext(canvas) {
+      var names = ["webgl", "experimental-webgl"];
+      var context = null;
+
+      for(var i = 0 ; i < names.length ; i++) {
+        try {
+          context = canvas.getContext(names[i]);
+        } catch(e) {
+          if(context) {
+            break;
+          }
+        }
+
+        if(context) {
+          context.viewportWidth = canvas.width;
+          context.viewportHeight = canvas.height;
+        } else {
+          alert("Failed to create WebGL Context");
+        }
+
+        return context;
+
+      }
+
+      var canvas = document.getElementById("canvas");
+      console.log(canvas)
+
+      if(canvas.getContext) {
+
+          //Draw a Red Square
+          var context2D = canvas.getContext("2d");
+          context2D.fillStyle = "rgb(255,0,0)";
+          context2D.fillRect(20,20,80,80);
+
+          //Draw a Green Square with 50% opacity
+          context2D.fillStyle = "rgb(0,255,0,0.5)";
+          context2D.fillRect(70,70,80,100);
+
+
+          context2D.strokEStyle = "black";
+          context2D.lineWidth = 5;
+          context2D.beginPath();
+          context2D.arc(100,100,90,(Math.PI/180) * 0 ,(Math.PI/180)* 360 , false);
+          context2D.stroke();
+          context2D.closePath();
+
+
+          context2D.font = "20px serif";
+          context2D.fillText("Hello World " , 40 , 220 );
+
+  }  
+
+    }
+
+    function loadShaderFromDOM(id) {
+          var shaderScript = document.getElementById(id);
+
+          if(!shaderScript) {
+              return null;
+          }
+
+          var shaderSource = "";
+          var currentChild = shaderScript.firstChild;
+          while (currentChild) {
+              if(currentChild.nodeType == 3) {
+                  shaderSource += currentChild.textContent;
+              }
+              currentChild = currentChild.nextSibling;
+          }
+
+          var shader;
+          if(shaderScript.type == "x-shader/x-fragment") {
+              shader = gl.createShader(gl.FRAGMENT_SHADER);
+          } else if(shaderScript.type == "x-shader/x-vertex") {
+            shader = gl.createShader(gl.VERTEX_SHADER);
+          } else {
+              return null;
+          }
+          gl.shaderSource(shader , shaderSource);
+          gl.compileShader(shader);
+
+          if(!gl.getShaderParameter(shader , gl.COMPILE_STATUS)) {
+              alert(gl.getShaderInfoLog(shader));
+              return null;
+          }
+          return shader;
+      }
+
+    function loadShader(type , shaderSource) {
+
+      var shader = gl.createShader(type);
+
+      gl.shaderSource(shader , shaderSource);
+      gl.compileShader(shader);
+
+      if(!gl.getShaderParameter(shader , gl.COMPILE_STATUS)) {
+
+          alert("Error compileing shader" + gl.getShaderInfoLog(shader));
+          gl.deleteShader(shader);
+          return null;
+      }
+
+          return shader;
+
+    }
+
+    function setupShaders() {
+        var vertexShaderSource = 
+        "attribute vec3 aVertexPosition; \n" +
+        "void main() {\n" + 
+        "gl_Position = vec4(aVertexPosition,1.0); \n"+
+        " } \n";
+
+        var fragmentShaderSource = 
+        "precision mediump float; \n" +
+        "void main() {\n" + 
+        "gl_FragColor = vec4(1.0,1.0,1.0,1.0); \n"+
+        " } \n";
+
+        var vertexShader = loadShaderFromDOM("shader-vs");
+
+        
+        var fragmentShader = loadShaderFromDOM("shader-fs");
+
+        shaderProgram = gl.createProgram();
+        gl.attachShader(shaderProgram , vertexShader);
+        gl.attachShader(shaderProgram , fragmentShader);
+        gl.linkProgram(shaderProgram);
+
+
+        if(!gl.getProgramParameter(shaderProgram ,gl.LINK_STATUS)) {
+          alert("Failed to stup shaders");
+        }
+
+        gl.useProgram(shaderProgram);
+        shaderProgram.vertexPositionAttribute = gl.getAttribLocation(shaderProgram , "aVertexPosition");
+
+    }
+
+    function setupBuffers() {
+      vetexBuffer = gl.createBuffer();
+      gl.bindBuffer(gl.ARRAY_BUFFER , vetexBuffer);
+
+      var triangleVertices = [
+        0.0 , 0.5 , 0.0,
+        -0.5 , -0.5 , 0.0 ,
+        0.5 , -0.5 , 0.0
+      ];
+
+      gl.bufferData(gl.ARRAY_BUFFER , new Float32Array(triangleVertices) , gl.STATIC_DRAW);
+      vetexBuffer.itemSize = 3;
+      vetexBuffer.numberOfItems = 3;
+
+    }
+
+    function draw() {
+      gl.viewport(0,0,gl.viewportWidth,gl.viewportHeight);
+      gl.clear(gl.COLOR_BUFFER_BIT);
+      gl.vertexAttribPointer(shaderProgram.vertexPositionAttribute,vetexBuffer.itemSize , gl.FLOAT,false,0,0);
+      gl.enableVertexAttribArray(shaderProgram.vertexPositionAttribute);
+      gl.drawArrays(gl.TRIANGLES , 0 ,vetexBuffer.numberOfItems);
+    }
+
+    function startup() {
+      canvas = document.getElementById("myGLCanvas");
+      gl = WebGLDebugUtils.makeDebugContext(createGLContext(canvas));
+      
+      setupShaders();
+      setupBuffers();
+      gl.clearColor(0.0,0.0,0.0,1.0);
+    
+      draw();
+
+    }
+
+    </script>
+  </head>
+
+  <body onload="startup();">
+
+    <canvas id="myGLCanvas" width="500" height="500">
+
+      
+    </canvas>
+
+    <ul>
+      <li><a href='/'>go to main </a></li>
+          
+      </ul>
+
+  </body>
+</html>

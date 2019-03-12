@@ -14,8 +14,8 @@ route.get('/triangle' , function (req , res) {
 	res.render('triangle');
 });
 
-route.get('/reset' , function (req , res) {
-	res.render('index');
+route.get('/advance_triangle' , function (req , res) {
+	res.render('advance_triangle');
 });
 
 route.get('/about' , function (req , res) {
