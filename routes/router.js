@@ -30,5 +30,9 @@ route.get('/menulogs' , function (req , res) {
 	res.render('menulogs');
 });
 
+route.get('/electricflower' , function (req , res) {
+	res.render('electricflower');
+});
+
 
 module.exports = route;
