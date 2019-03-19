@@ -34,5 +34,13 @@ route.get('/electricflower' , function (req , res) {
 	res.render('electricflower');
 });
 
+route.get('/embeddeddebug' , function (req , res) {
+	res.render('embeddeddebug');
+});
+
+route.get('/embeddeddebugtwo' , function (req , res) {
+	res.render('embeddeddebugtwo');
+});
+
 
 module.exports = route;
